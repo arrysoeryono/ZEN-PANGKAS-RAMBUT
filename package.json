@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "DATABASE_URL=postgresql://postgres@localhost:5433/postgres DIRECT_DATABASE_URL=postgresql://postgres@localhost:5433/postgres next dev -p 3000 2>&1 | tee dev.log",
     "dev:db": "bun scripts/dev-postgres.ts",
-    "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
+    "build": "next build && if [ -d .next/standalone ]; then cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/; fi",
     "start": "NODE_ENV=production bun .next/standalone/server.js 2>&1 | tee server.log",
     "lint": "eslint .",
     "postinstall": "prisma generate",
