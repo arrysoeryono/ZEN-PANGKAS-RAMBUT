@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Offline · ZEN Pangkas Rambut</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fbf3ef;
+        font-family: system-ui, -apple-system, sans-serif;
+        color: #33261f;
+        text-align: center;
+      }
+      .box {
+        padding: 32px 24px;
+        max-width: 320px;
+      }
+      .mark {
+        width: 72px;
+        height: 72px;
+        border-radius: 20px;
+        background: #e24c3b;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0 0 8px;
+      }
+      p {
+        font-size: 14px;
+        color: #97867c;
+        margin: 0 0 20px;
+        line-height: 1.6;
+      }
+      button {
+        border: 0;
+        background: #e24c3b;
+        color: #fff7f3;
+        font-weight: 800;
+        padding: 12px 24px;
+        border-radius: 14px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="mark">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FFF7F3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="6" cy="6" r="3" />
+          <circle cx="6" cy="18" r="3" />
+          <line x1="20" y1="4" x2="8.12" y2="15.88" />
+          <line x1="14.47" y1="14.48" x2="20" y2="20" />
+          <line x1="8.12" y1="8.12" x2="12" y2="12" />
+        </svg>
+      </div>
+      <h1>Anda sedang offline</h1>
+      <p>ZEN Pangkas Rambut butuh koneksi internet untuk memuat data terbaru. Periksa jaringan Anda lalu coba lagi.</p>
+      <button onclick="location.reload()">Coba Lagi</button>
+    </div>
+  </body>
+</html>

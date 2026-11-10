@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+enum Role {
+  OWNER
+  KASIR
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+// Pengguna aplikasi: owner & karyawan/kasir/tukang pangkas
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  pinHash      String
+  role         Role          @default(KASIR)
+  active       Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  transactions Transaction[]
+}
+
+// Layanan / jasa pangkas (Anak Rp15.000, Dewasa Rp20.000, dll)
+model Service {
+  id           String        @id @default(cuid())
+  name         String
+  price        Int
+  active       Boolean       @default(true)
+  sortOrder    Int           @default(0)
+  createdAt    DateTime      @default(now())
+  transactions Transaction[]
+}
+
+// Kategori pengeluaran (Belanja, Gaji, Listrik & Air, dll)
+model Category {
+  id           String          @id @default(cuid())
+  name         String
+  active       Boolean         @default(true)
+  sortOrder    Int             @default(0)
+  createdAt    DateTime        @default(now())
+  transactions Transaction[]
+}
+
+// Transaksi keuangan (pemasukan & pengeluaran)
+// Nama layanan/kategori disimpan snapshot agar laporan historis tidak berubah
+// jika nama master diubah/dihapus.
+model Transaction {
+  id           String          @id @default(cuid())
+  type         TransactionType
+  amount       Int
+  note         String?
+  serviceId    String?
+  service      Service?        @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  serviceName  String?
+  categoryId   String?
+  category     Category?       @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryName String?
+  userId       String
+  user         User            @relation(fields: [userId], references: [id])
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  @@index([createdAt])
+  @@index([userId])
+  @@index([type])
+}
